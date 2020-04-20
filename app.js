@@ -29,14 +29,12 @@ app.use('*', (req, res) => {
 });
 app.use((err, req, res, next) => {
   if (err.status != 500) {
-    res.status(404).send({ message: 'Объект не найден' });
+    res.status(404).send({ message: (err.name == 'ValidationError') ?  'Ошибка валидаци': 'Объект не найден'});
   }
   res.status(500).send({ message: 'Произошла ошибка на сервере' })
 });
-
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Begin listening');
 });
-//(err.message) ? 'Ошибка валидации': 'Объект не найден'
