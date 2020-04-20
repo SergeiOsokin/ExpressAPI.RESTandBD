@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+
 const card = mongoose.Schema({
   name: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30
+    maxlength: 30,
   },
   link: {
     type: String,
@@ -13,22 +14,20 @@ const card = mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    required: true
+    required: true,
   },
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    default: ''
+    default: '',
   }],
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 },
 { versionKey: false });
 
 module.exports = mongoose.model('card', card);
 
-card.path('link').validate(function (value) {
-  return /(https?:\/\/)(www\.)?((\w+\.\w{2,})|(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))(:\d{2,5})?.*#?/i.test(value);
-}, 'Invalid URL');
+card.path('link').validate((value) => /(https?:\/\/)(www\.)?((\w+\.\w{2,})|(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))(:\d{2,5})?.*#?/i.test(value), 'Invalid URL');
