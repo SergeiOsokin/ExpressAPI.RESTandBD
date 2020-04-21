@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(bodyParser.json());
 app.use((req, res, next) => {
   req.user = {
-    _id: '5e98b9b2943ebe19608aed5a', // вставьте сюда _id созданного в предыдущем пункте пользователя
+    _id: '5e9ebb8aef68d218e0e8696d', // вставьте сюда _id созданного в предыдущем пункте пользователя
   };
   next();
 });
@@ -31,7 +31,7 @@ app.use((err, req, res, next) => {
   if (err.status != 500) {
     res.status(404).send({ message: (err.name == 'ValidationError') ?  'Ошибка валидаци': 'Объект не найден'});
   }
-  res.status(500).send({ message: 'Произошла ошибка на сервере' })
+  res.status(500).send({ message: 'Произошла ошибка на сервере' });
 });
 
 app.listen(PORT, () => {

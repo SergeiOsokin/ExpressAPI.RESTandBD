@@ -1,10 +1,4 @@
-// {
-//   "extends": "airbnb-base"//,
-//   //"allow": ["_", "_id"]
-// }
 {
-  "rules": {
-      "extends": "airbnb-base"
-      // "allow": "_id"
-  }
+  "extends": "airbnb-base",
+  "no-underscore-dangle": "off"
 }

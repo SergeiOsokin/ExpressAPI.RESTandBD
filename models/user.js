@@ -23,5 +23,3 @@ const user = new mongoose.Schema({
 { versionKey: false });
 
 module.exports = mongoose.model('user', user);
-
-//user.path('avatar').validate((value) => /(https?:\/\/)(www\.)?((\w+\.\w{2,})|(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))(:\d{2,5})?.*#?/i.test(value), 'Invalid URL');

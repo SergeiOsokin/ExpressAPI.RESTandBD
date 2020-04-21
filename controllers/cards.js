@@ -1,10 +1,11 @@
+/* eslint-disable no-shadow */
 const card = require('../models/card');
 
 const getCards = (req, res) => {
   card.find({})
     .populate('owner')
     .then((card) => res.send({ card }))
-    .catch((err) => res.status(500).send({ message: 'Получить все карточки не удалось' }));
+    .catch(() => res.status(500).send({ message: 'Получить все карточки не удалось' }));
 };
 
 const createCard = (req, res, next) => {
@@ -15,8 +16,12 @@ const createCard = (req, res, next) => {
 };
 
 const deleteCard = (req, res, next) => {
-  card.findByIdAndDelete(req.params.cardId)
-    .then((card) => res.send({ card }))
+  card.findByIdAndRemove(req.params.cardId, (err, resq) => {
+    if (!resq) {
+      next();
+    }
+  })
+    .then(() => res.send({ message: 'Карточка удалена' }))
     .catch((err) => next(err));
 };
 
