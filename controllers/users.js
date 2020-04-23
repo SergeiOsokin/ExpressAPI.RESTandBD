@@ -8,9 +8,9 @@ const getUsers = (req, res) => {
 };
 const getUser = (req, res, next) => {
   user.findById(req.params.userId)
-    .then(((card) => {
-      if (card) {
-        return res.send({ card });
+    .then(((user) => {
+      if (user) {
+        return res.send({ user });
       }
       return next();
     }))
