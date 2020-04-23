@@ -8,18 +8,20 @@ const getUsers = (req, res) => {
 };
 const getUser = (req, res, next) => {
   user.findById(req.params.userId)
-    .then((user) => res.send({ user }))
-    .catch((err) => {
-      next(err);
-    });
+    .then(((card) => {
+      if (card) {
+        return res.send({ card });
+      }
+      return next();
+    }))
+    .catch((err) => next(err));
 };
+
 const createUser = (req, res, next) => {
   const { name, about, avatar } = req.body;
   user.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => next(err));
 };
 const changeUser = (req, res, next) => {
   const { name, about } = req.body;

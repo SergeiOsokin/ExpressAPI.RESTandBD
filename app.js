@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 /* eslint-disable spaced-comment */
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -24,14 +26,12 @@ app.use((req, res, next) => {
 });
 app.use('/users', routerUsers);
 app.use('/cards', routerCards);
-app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-});
+app.use('*', (req, res) => res.status(404).send({ message: 'Запрашиваемый ресурс не найден' }));
 app.use((err, req, res, next) => {
   if (err.status != 500) {
-    res.status(404).send({ message: (err.name == 'ValidationError') ?  'Ошибка валидаци': 'Объект не найден'});
+    return res.status(404).send({ message: (err.name == 'ValidationError') ? `Ошибка валидаци: ${err.message}` : 'Объект не найден' });
   }
-  res.status(500).send({ message: 'Произошла ошибка на сервере' });
+  return res.status(500).send({ message: 'Произошла ошибка на сервере' });
 });
 
 app.listen(PORT, () => {
